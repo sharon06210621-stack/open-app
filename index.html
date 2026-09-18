@@ -21,10 +21,10 @@ var APPS = {
 };
 var q = new URLSearchParams(location.search);
 var key = q.get("to");
-// 設鬧鐘：交給手機上叫「設鬧鐘」的捷徑，只收 HH:MM
+// 設鬧鐘：交給手機上叫「alarm」的捷徑，只收 HH:MM
 var t = q.get("t") || "";
 if (key === "alarm" && /^([01]\d|2[0-3]):[0-5]\d$/.test(t)) {
-  APPS.alarm = "shortcuts://run-shortcut?name=" + encodeURIComponent("設鬧鐘") +
+  APPS.alarm = "shortcuts://run-shortcut?name=" + encodeURIComponent("alarm") +
                "&input=text&text=" + encodeURIComponent(t);
 }
 if (key === "test" || key === "test55688") {
