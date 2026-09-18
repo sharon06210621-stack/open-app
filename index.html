@@ -19,7 +19,14 @@ var APPS = {
   "taxi4": "com.taiwantaxi.passenger://",
   "taxi5": "taiwantaxi55688://"
 };
-var key = new URLSearchParams(location.search).get("to");
+var q = new URLSearchParams(location.search);
+var key = q.get("to");
+// 設鬧鐘：交給手機上叫「設鬧鐘」的捷徑，只收 HH:MM
+var t = q.get("t") || "";
+if (key === "alarm" && /^([01]\d|2[0-3]):[0-5]\d$/.test(t)) {
+  APPS.alarm = "shortcuts://run-shortcut?name=" + encodeURIComponent("設鬧鐘") +
+               "&input=text&text=" + encodeURIComponent(t);
+}
 if (key === "test" || key === "test55688") {
   var prefix = key === "test" ? "bolt" : "taxi";
   document.getElementById("msg").textContent = "一顆一顆按，看哪顆會直接跳進 App";
