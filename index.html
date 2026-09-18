@@ -12,12 +12,18 @@ a{display:block;margin:14px auto;max-width:320px;padding:14px;border-radius:12px
 var APPS = {
   "bolt1": "bolt://",
   "bolt2": "taxify://",
-  "bolt3": "ee.mtakso.client://"
+  "bolt3": "ee.mtakso.client://",
+  "taxi1": "taiwantaxi://",
+  "taxi2": "dbx.taiwantaxi://",
+  "taxi3": "tw55688://",
+  "taxi4": "com.taiwantaxi.passenger://",
+  "taxi5": "taiwantaxi55688://"
 };
 var key = new URLSearchParams(location.search).get("to");
-if (key === "test") {
-  document.getElementById("msg").textContent = "一顆一顆按，看哪顆會直接跳進 Bolt";
-  Object.keys(APPS).forEach(function (k) {
+if (key === "test" || key === "test55688") {
+  var prefix = key === "test" ? "bolt" : "taxi";
+  document.getElementById("msg").textContent = "一顆一顆按，看哪顆會直接跳進 App";
+  Object.keys(APPS).filter(function (k) { return k.indexOf(prefix) === 0; }).forEach(function (k) {
     var a = document.createElement("a"); a.href = APPS[k]; a.textContent = "試 " + k;
     document.getElementById("btns").appendChild(a);
   });
