@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>打開 App</title>
+<style>body{font-family:-apple-system,sans-serif;background:#fff;color:#222;text-align:center;padding:40px 16px}
+a{display:block;margin:14px auto;max-width:320px;padding:14px;border-radius:12px;background:#34d186;color:#fff;text-decoration:none;font-size:18px}</style>
+</head><body>
+<p id="msg">正在打開…</p>
+<div id="btns"></div>
+<script>
+// 只允許固定幾個 App，不接受任意網址，避免被拿去亂轉跳
+var APPS = {
+  "bolt1": "bolt://",
+  "bolt2": "taxify://",
+  "bolt3": "ee.mtakso.client://"
+};
+var key = new URLSearchParams(location.search).get("to");
+if (key === "test") {
+  document.getElementById("msg").textContent = "一顆一顆按，看哪顆會直接跳進 Bolt";
+  Object.keys(APPS).forEach(function (k) {
+    var a = document.createElement("a"); a.href = APPS[k]; a.textContent = "試 " + k;
+    document.getElementById("btns").appendChild(a);
+  });
+} else if (APPS[key]) {
+  location.href = APPS[key];
+  var a = document.createElement("a"); a.href = APPS[key]; a.textContent = "沒跳過去就按這裡";
+  document.getElementById("btns").appendChild(a);
+} else {
+  document.getElementById("msg").textContent = "連結不完整";
+}
+</script>
+</body></html>
